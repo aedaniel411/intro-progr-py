@@ -19,20 +19,27 @@ def aceleraciones():
         a[indexi + 2] = a[indexi + 2] - Ms * zi * invrp
         
         # Aceleración entre planetas k e i
-        do k = i + 1, 9 !Aceleraci´on entre planetas k e i
-        indexk = 3 ∗ k
-        xk = r(indexk − 2); yk = r(indexk − 1); zk = r(indexk)
-        inverpk = (1/SQRT ((xk − xi)
-        2 + (yk − yi)
-        2 + (zk − zi)
-        2
-        ))3
-        —— Aceleraci´on de planeta k sobre i ——
-        a(indexi − 2) = a(indexi − 2) − Mk ∗ (xi − xk) ∗ invrpk
-        a(indexi − 1) = a(indexi − 1) − Mk ∗ (yi − xk) ∗ invrpk
-        a(indexi) = a(indexi) − Mk ∗ (zi − xk) ∗ invrpk
-        —— Aceleraci´on de planeta i sobre k ——
-        a(indexk − 2) = a(indexk − 2) − Mi ∗ (xk − xi) ∗ invrpk
-        a(indexk − 1) = a(indexk − 1) − Mi ∗ (yk − yi) ∗ invrpk
-        a(indexk) = a(indexk) − Mi ∗ (zk − zi) ∗ invrpk
-        end do
+        for k in range (i + 1, 9):
+            indexk = 3 * k
+            xk = r[indexk]
+            yk = r[indexk + 1]
+            zk = r[indexk + 2]
+            
+            invrpk = ( 1.0 / np.sqrt((xk - xi)**2.0 + (yk - yi)**2.0 + (zk - zi)**2.0) )** 3.0
+            
+            # Aceleración de planeta k sobre i
+            a[indexi] = a[indexi] - M[k] * (xi - xk) * invrpk
+            a[indexi + 1] = a[indexi + 1] - M[k] * (yi - yk) * invrpk
+            a[indexi + 2] = a[indexi + 2] - M[k] * (zi - zk) * invrpk
+            
+            # Aceleración de planeta i sobre k 
+            a[indexk] = a[indexk] - M[i] * (xk - xi) * invrpk
+            a[indexk + 1] = a[indexk + 1] - M[i] * (yk - yi) * invrpk
+            a[indexk + 2] = a[indexk + 2] - M[i] * (zk - zi) * invrpk
+
+Ms = 39.428
+M = np.array ([6.547 × 10−6, 9.652 × 10−5, 1.185 × 10−4,......])   
+r = np.array ([0.387098,0,0,0.723332,0,0.... ]) 
+v = np.array ([0,0.723332,0, 0,7.38415,0,......])        
+
+
