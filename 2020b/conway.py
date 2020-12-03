@@ -1,7 +1,5 @@
 import numpy as np
-
-a = np.zeros([24,80])
-b = np.zeros([24,80])
+import os, time
 
 def contarvecinos(nren,ncol):
     suma = 0
@@ -23,7 +21,10 @@ def nuevoEdo(edoactual, vecinosvivos):
     return ne 
 
 def escribe () :
-    for ren in range(24) :
+    #os.system("sleep 0.5") #en windows "timeout 1"
+    time.sleep(0.5)
+    os.system("clear")
+    for ren in range(14) :
         for col in range(80) :
             if a[ren,col] == 0 :
                 print(" ", end='')
@@ -31,7 +32,19 @@ def escribe () :
                 print("*", end='')
         print()
 
-print (a)
-a[5,5] = 1
-escribe()
+a = np.random.randint(0,2,[15,81])
+a[:,0] = 0
+a[0,:] = 0
+a[:,80] = 0
+a[14,:] = 0 
 
+while 1 == 1 :
+    escribe()
+    b = np.zeros([14,80])
+
+    for ren in range(1,13) :
+        for col in range(1,79) :
+            n = contarvecinos(ren,col)
+            b[ren,col] = nuevoEdo(a[ren,col],n)
+
+    a = b 
