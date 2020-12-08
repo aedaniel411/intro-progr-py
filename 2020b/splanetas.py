@@ -1,4 +1,7 @@
 import numpy as np
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt 
+from matplotlib import animation
 
 def aceleraciones():
     # Calcular aceleración del planeta i
@@ -60,8 +63,9 @@ a = np.zeros( (27) )
 dt = 0.01
 
 x = []
+puntos=5000
 
-for n in range(5000):
+for n in range(puntos):
     # Inicializar en cero todas las aceleraciones
     a = np.zeros( (27) )
     aceleraciones()
@@ -70,7 +74,31 @@ for n in range(5000):
 
     r = posiciones(r,v,dt)
 
-    x.append(r)
+    x.append( r.tolist() )
 
 #graficar x
-print(x)
+X = np.array(x)
+#print( len(X[:,0]))
+
+# Definir grafica
+fig = plt.figure(10)
+ax = fig.gca(projection="3d")
+
+def actualiza(k) :
+    ax.clear()
+
+    for p in range(5) :
+        i = 3 * p 
+        xi = X[:,i]
+        yi = X[:,i + 1]
+        zi = X[:,i + 2]
+        ax.plot3D(xi[:k],yi[:k],zi[:k])
+
+    #i = 3 * 3
+    #xj = X[:,i]
+    #yj = X[:,i + 1]
+    #zj = X[:,i + 2]
+    #ax.plot3D(xj[:k],yj[:k],zj[:k], color='red')
+
+ani = animation.FuncAnimation(fig, actualiza, puntos, interval=1 )
+plt.show()
