@@ -87,7 +87,7 @@ ax = fig.gca(projection="3d")
 def actualiza(k) :
     ax.clear()
 
-    for p in range(5) :
+    for p in range(9) :
         i = 3 * p 
         xi = X[:,i]
         yi = X[:,i + 1]
